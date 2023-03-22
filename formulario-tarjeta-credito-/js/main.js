@@ -124,14 +124,7 @@ formulario.inputCCV.addEventListener('keyup', () => {
 	ccv.textContent = formulario.inputCCV.value;
 });
 
-formulario.addEventListener('submit', (e) =>{
-	e.preventDefault()
-	const form = new FormData(e.target)
-	fetch('./data.jason', {
-		method: 'POST',
-		body: JSON.stringify(form)
-	});
-});
+
 
 //Pago final
 
@@ -152,3 +145,16 @@ btnFinal.addEventListener('click', () => {
 		text: 'Gracias por su compra!'
 	});
 });
+
+formulario.addEventListener('submit', (e) =>{
+	e.preventDefault()
+	totalaPagar.innerText = "Total a pagar: S/.0 "
+	const form = new FormData(e.target)
+	fetch('./data.jason', {
+		method: 'POST',
+		body: JSON.stringify(form)
+	});
+	e.target.reset()
+	document.getElementById('primer-formulario').reset()
+});
+

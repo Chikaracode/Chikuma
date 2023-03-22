@@ -25,9 +25,10 @@ let btns = [
 let product = [];
 
 fetch("./data.json")
-.then((res) => res.jason())
+.then((res) => res.json())
 
 .then((data) => {
+    product = data
     mostrarItem(data);
 });
 
@@ -40,7 +41,7 @@ const filters = [...new Set(btns.map((btn) =>
     document.getElementById('btns').innerHTML = filters.map((btn) => {
         let {categoria, id} = btn;
         return(
-            "<button class= 'fil-p' onclick = 'filterItems("+(id)+`)'>${categoria}</button>`
+            `<button class= 'fil-p' onclick = "filterItems('${categoria}')">${categoria}</button>`
         )
     }).join('');
 
@@ -51,9 +52,9 @@ const mostrarTodos = () => {
 }
 
     document.getElementById('btns').innerHTML = filters.map((btn) => {
-        let {categoria, id, idBtn} = btn; // agrega idBtn aquí
+        let {categoria, idBtn} = btn; // agrega idBtn aquí
         return(
-        `<button id="${idBtn || ''}" class="fil-p" onclick="filterItems(${id})">${categoria}</button>`
+        `<button id="${idBtn || ''}" class="fil-p" onclick="filterItems('${categoria}')">${categoria}</button>`
        )
     }).join('');
 
@@ -70,43 +71,24 @@ const categories = [...new Set(product.map((item) =>
 //En este código, la función de devolución de llamada que se pasa al método filter() 
 //comprueba si el id del elemento es igual a a y devuelve true si es así. Luego, el resultado filtrado se pasa a la función mostrarItem.
 
-const filterItems = (a) => {
-    const filterCategories = categories.filter(item => item.id === a);
-    mostrarItem(filterCategories);
+const filterItems = (categoria) => {
+    Array.from(document.querySelectorAll("[data-categoria]")).forEach((producto => producto.style.display = 'none'))
+    const productosFiltrados = Array.from(document.querySelectorAll("[data-categoria='"+categoria+"']"))
+    productosFiltrados.forEach((producto => producto.style.display = 'block'))
   };
 
 
-// const mostrarItem = (items, data) => {
-
-//     product = data;
-//     document.getElementById('root').innerHTML = items.map((item) =>
-//     {
-//         let {imagen, titulo, precio, id} = item;
-        
-//         return(
-//            `<div class = 'box'>
-//             <h3>${titulo}</h3>
-//             <div class = 'img-box'>
-//             <img class = 'images' src = ${imagen}></img>
-//             </div>
-//             <div class = 'bottom'>
-//             <h2>S/.${precio}.00</h2>` +
-//             "<a class='enlace' href=#carrito onClick = 'addToCart("+id+")'>Añadir al carrito</a>" +
-//             `</div>
-//             </div>`
-           
-//         )}).join(''); 
-
-//       };
 
 const mostrarItem = (data) => {
     product = data;
     const contenedor = document.getElementById('root');
+    contenedor.innerHTML=''
     product.forEach((producto, indice) => {
         let card = document.createElement('div');
+        card.setAttribute('class', 'box')
+        card.setAttribute('data-categoria', producto.categoria)
         card.classList.add('root');
-        card.innerHTML = `<div class='box'>
-        <h3>${producto.titulo}</h3>
+        card.innerHTML = `<h3>${producto.titulo}</h3>
         <div class = 'img-box'>
         <img class = 'images' src = ${producto.imagen}></img>
         </div>
@@ -114,12 +96,11 @@ const mostrarItem = (data) => {
         <h2>S/.${producto.precio}.00</h2>
         <a class='enlace' href=#carrito onClick = 'addToCart(${indice})'>Añadir al carrito</a>
         </div>
-        </div>`;
+        `;
         contenedor.appendChild(card); 
     });
 }
-
-    mostrarItem(categories);
+    mostrarItem(product);
 
 const addToCart = (i) => {
     const clickProduct = carrito.findIndex((elemento) => elemento.id === i)
