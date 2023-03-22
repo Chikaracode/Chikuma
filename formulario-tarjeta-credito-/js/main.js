@@ -124,12 +124,23 @@ formulario.inputCCV.addEventListener('keyup', () => {
 	ccv.textContent = formulario.inputCCV.value;
 });
 
+formulario.addEventListener('submit', (e) =>{
+	e.preventDefault()
+	const form = new FormData(e.target)
+	fetch('./data.jason', {
+		method: 'POST',
+		body: JSON.stringify(form)
+	});
+});
+
 //Pago final
 
 let totalaPagar = document.getElementById('totalPagar');
-let valorAlmacenado = localStorage.getItem('carrito');
+let valorAlmacenado = JSON.parse(localStorage.getItem('carrito'));
 
-totalaPagar.innerText = "Total a pagar: S/. " + valorAlmacenado
+const valorTotal = valorAlmacenado.reduce((accumulator, value)=> accumulator + (value.cantidad * value.precio), 0)
+
+totalaPagar.innerText = "Total a pagar: S/. " + valorTotal
 
 //Boton final
 
@@ -137,7 +148,7 @@ let btnFinal = document.getElementById('btnFinal');
 
 btnFinal.addEventListener('click', () => {
 	Swal.fire({
-		icon: 'succes',
+		icon: 'success',
 		text: 'Gracias por su compra!'
 	});
 });

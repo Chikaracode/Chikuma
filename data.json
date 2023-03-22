@@ -1,0 +1,58 @@
+[
+    {
+        "id": 0,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Filtro de agua",
+        "precio": 100,
+        "categoria": "Productos del hogar"
+    },
+    {  
+       "id": 1,
+       "imagen": "./img/producto.jpg",
+       "titulo": "Escoba 3en1",
+       "precio": 40,
+       "categoria": "Productos del hogar"
+    },
+    {
+        "id": 2,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Mascarillas faciales",
+        "precio": 80,
+        "categoria": "Skincare"
+    },
+    {
+        "id": 3,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Jabón de rostro",
+        "precio": 15,
+        "categoria": "Skincare"
+    },
+    {
+        "id": 4,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Peluche Kawaii",
+        "precio": 30,
+        "categoria": "Kawaii"
+    },
+    {
+        "id": 5,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Polera kawaii",
+        "precio": 60,
+        "categoria": "Kawaii"
+    },
+    {
+        "id": 6,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Aspiradora robot",
+        "precio": 200,
+        "categoria": "Tecnología"
+    },
+    {
+        "id": 7,
+        "imagen": "./img/producto.jpg",
+        "titulo": "Parlante smart",
+        "precio": 100,
+        "categoria": "Tecnología"
+    }
+]

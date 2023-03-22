@@ -22,64 +22,14 @@ let btns = [
     }
 ];
 
-let product = [
-    {
-        id: 0,
-        imagen: './img/producto.jpg',
-        titulo: 'Filtro de agua',
-        precio: 100,
-        categoria: 'Productos del hogar'
-    },
-    {  
-       id: 1,
-       imagen: './img/producto.jpg',
-       titulo: 'Escoba 3en1',
-       precio: 40,
-       categoria: 'Productos del hogar'
-    },
-    {
-        id: 2,
-        imagen: './img/producto.jpg',
-        titulo: 'Mascarillas faciales',
-        precio: 80,
-        categoria: 'Skincare'
-    },
-    {
-        id: 3,
-        imagen: './img/producto.jpg',
-        titulo: 'Jabón de rostro',
-        precio: 15,
-        categoria: 'Skincare'
-    },
-    {
-        id: 4,
-        imagen: './img/producto.jpg',
-        titulo: 'Peluche Kawaii',
-        precio: 30,
-        categoria: 'Kawaii'
-    },
-    {
-        id: 5,
-        imagen: './img/producto.jpg',
-        titulo: 'Polera kawaii',
-        precio: 60,
-        categoria: 'Kawaii'
-    },
-    {
-        id: 6,
-        imagen: './img/producto.jpg',
-        titulo: 'Aspiradora robot',
-        precio: 200,
-        categoria: 'Tecnología'
-    },
-    {
-        id: 7,
-        imagen: './img/producto.jpg',
-        titulo: 'Parlante smart',
-        precio: 100,
-        categoria: 'Tecnología'
-    },
-];
+let product = [];
+
+fetch("./data.json")
+.then((res) => res.jason())
+
+.then((data) => {
+    mostrarItem(data);
+});
 
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -126,26 +76,48 @@ const filterItems = (a) => {
   };
 
 
-const mostrarItem = (items) => {
-    document.getElementById('root').innerHTML = items.map((item) =>
-    {
-        let {imagen, titulo, precio, id} = item;
-        
-        return(
-           `<div class = 'box'>
-            <h3>${titulo}</h3>
-            <div class = 'img-box'>
-            <img class = 'images' src = ${imagen}></img>
-            </div>
-            <div class = 'bottom'>
-            <h2>S/.${precio}.00</h2>` +
-            "<a class='enlace' href=#carrito onClick = 'addToCart("+id+")'>Añadir al carrito</a>" +
-            `</div>
-            </div>`
-           
-        )}).join(''); 
+// const mostrarItem = (items, data) => {
 
-      };
+//     product = data;
+//     document.getElementById('root').innerHTML = items.map((item) =>
+//     {
+//         let {imagen, titulo, precio, id} = item;
+        
+//         return(
+//            `<div class = 'box'>
+//             <h3>${titulo}</h3>
+//             <div class = 'img-box'>
+//             <img class = 'images' src = ${imagen}></img>
+//             </div>
+//             <div class = 'bottom'>
+//             <h2>S/.${precio}.00</h2>` +
+//             "<a class='enlace' href=#carrito onClick = 'addToCart("+id+")'>Añadir al carrito</a>" +
+//             `</div>
+//             </div>`
+           
+//         )}).join(''); 
+
+//       };
+
+const mostrarItem = (data) => {
+    product = data;
+    const contenedor = document.getElementById('root');
+    product.forEach((producto, indice) => {
+        let card = document.createElement('div');
+        card.classList.add('root');
+        card.innerHTML = `<div class='box'>
+        <h3>${producto.titulo}</h3>
+        <div class = 'img-box'>
+        <img class = 'images' src = ${producto.imagen}></img>
+        </div>
+        <div class = 'bottom'>
+        <h2>S/.${producto.precio}.00</h2>
+        <a class='enlace' href=#carrito onClick = 'addToCart(${indice})'>Añadir al carrito</a>
+        </div>
+        </div>`;
+        contenedor.appendChild(card); 
+    });
+}
 
     mostrarItem(categories);
 
