@@ -129,7 +129,7 @@ formulario.inputCCV.addEventListener('keyup', () => {
 //Pago final
 
 let totalaPagar = document.getElementById('totalPagar');
-let valorAlmacenado = JSON.parse(localStorage.getItem('carrito'));
+let valorAlmacenado = JSON.parse(localStorage.getItem('carrito')) || [];
 
 const valorTotal = valorAlmacenado.reduce((accumulator, value)=> accumulator + (value.cantidad * value.precio), 0)
 
