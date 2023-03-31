@@ -130,7 +130,7 @@ function delElement(a){
 
 
 function displayCart(a){
-    carrito = JSON.parse(localStorage.getItem('carrito'))
+    let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
     let j = 0; total = 0;
     document.getElementById('count').innerHTML = carrito.length;
     if(carrito.length == 0){
